@@ -1,0 +1,77 @@
+https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
+https://logz.io/blog/amazon-eks-cluster/
+https://github.com/kubernetes/examples/blob/master/guestbook-go/main.go
+https://cloudplex.io/tutorial/postgres-on-kubernetes-using-aws-ebs-as-a-volume-for-data-persistence-part-i/
+https://cloudplex.io/tutorial/postgres-on-kubernetes-using-aws-ebs-as-a-volume-for-data-persistence-part-ii/
+https://severalnines.com/database-blog/using-kubernetes-deploy-postgresql
+
+https://docs.aws.amazon.com/eks/latest/userguide/create-public-private-vpc.html vpc configuration
+
+
+// next
+
+https://medium.com/bb-tutorials-and-thoughts/aws-deploying-react-app-with-nodejs-backend-on-eks-e5663cb5017f
+
+// CloudFormation
+
+
+
+aws ecr get-login-password --profile soulmonk | docker login --username AWS --password-stdin {AMAZON_ID}.dkr.ecr.eu-west-1.amazonaws.com
+
+// ECR
+aws ecr create-repository --profile soulmonk --repository-name cuppa/finance-stats
+docker build -t cuppa/finance-stats .
+docker tag cuppa/finance-stats:latest {AMAZON_ID}.dkr.ecr.eu-west-1.amazonaws.com/cuppa/finance-stats:latest
+docker push {AMAZON_ID}.dkr.ecr.eu-west-1.amazonaws.com/cuppa/finance-stats:latest
+
+
+arn:aws:iam::{AMAZON_ID}:role/eksrole
+
+aws eks --profile soulmonk --region eu-west-1 create-cluster --name cuppa-cluster --role-arn arn:aws:iam::{AMAZON_ID}:role/eksrole --resources-vpc-config subnetIds=subnet-09ade7167eeab6a48,subnet-085206c2cd43f4c06,subnet-0cf8ea2560ea4ec23,securityGroupIds=sg-0220518d63f7b9455
+aws eks --profile soulmonk describe-cluster --name cuppa-cluster --query cluster.status
+
+aws eks --profile soulmonk update-kubeconfig --name cuppa-cluster
+
+
+kubectl run finance-stats --image={AMAZON_ID}.dkr.ecr.eu-west-1.amazonaws.com/cuppa/finance-stats:latest -—restart=Never
+
+
+
+kubectl get svc
+
+pods 0/1 - not enough resurses in node group
+
+
+kubectl delete --all pods
+
+
+kubectl delete deployment postgres
+
+kubectl delete service postgres
+kubectl delete deployment postgres
+kubectl delete configmap postgres-config
+kubectl delete persistentvolumeclaim postgres-pv-claim
+kubectl delete persistentvolume postgres-pv-volume
+
+
+kubectl delete service guestbook
+kubectl delete service redis-slave
+kubectl delete service redis-master
+kubectl delete replicationcontroller guestbook
+kubectl delete replicationcontroller redis-master
+kubectl delete replicationcontroller redis-slave
+
+
+
+//// namespace
+
+/// pg
+kubectl apply -f postgres-configmap.yaml
+kubectl apply -f postgres-configmap.yaml
+
+
+kubectl delete service postgres
+kubectl delete deployment postgres
+kubectl delete configmap postgres-config
+kubectl delete persistentvolumeclaim postgres-pv-claim
+kubectl delete persistentvolume postgres-pv-volume
