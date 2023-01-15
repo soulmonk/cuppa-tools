@@ -35,3 +35,19 @@ CREATE USER "cuppa" NOSUPERUSER;
 ALTER USER "cuppa" WITH PASSWORD 'toor';
 CREATE DATABASE "cuppa-authentication" WITH OWNER 'cuppa';
 ```
+
+
+## Docker compose
+
+Init external resources
+```bash
+docker network create cuppa-network
+docker volume create cuppa-postgres-data
+docker volume create cuppa-mongo-data
+```
+
+```bash
+docker-compose -p cuppa-base -f deployment/base.docker-compose.yml up -d --remove-orphans
+```
+
+Do not forget run migration and setup db [postgres-setup.sql](scripts%2Fpostgres-setup.sql)
