@@ -1,4 +1,4 @@
-FROM node:18-alpine AS BUILD_IMAGE
+FROM node:20-alpine AS BUILD_IMAGE
 
 RUN apk update && apk add bash python3 g++ make
 
@@ -11,7 +11,7 @@ COPY package-lock.json package-lock.json
 
 RUN npm install --omit=dev
 
-FROM node:18-alpine
+FROM node:20-alpine
 USER node
 WORKDIR /app
 
