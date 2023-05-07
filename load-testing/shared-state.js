@@ -34,20 +34,15 @@ export default function (users) {
   // data copied to each VU, and can be modified per VU, no intersection between VUs
   const userId = exec.vu.idInTest - 1;
   users[userId].newField = 'available between iterations ' + exec.vu.iterationInScenario;
-  // users[userId].newField = 'available between iterations ' + exec.vu.iterationInInstance;
   console.log(exec.vu.iterationInInstance);
-  // console.log(exec.vu.iterationInScenario);
   const res = http.get(url, {
     headers: users[userId].headers
   });
-  // console.log('shared-state.js::::39 >>>', users[userId].newField);
   sleep(0.4);
 }
 
 export function teardown(data) {
   const userId = Object.keys(data)[0];
-  // no such field
-  // console.log(typeof data[userId].newField);
+  // no such field `typeof data[userId].newField === 'undefined'`
   // original data from setup(), not by default function.
-  // console.log('basic.js::tearDown::99 >>>', data);
 }
