@@ -11,10 +11,16 @@ currently only as submodules
 git submodule add git@github.com:soulmonk/cuppa-tools.git
 ```
 
-### Update
+### Init in existing project after checkout
 
 ```bash
 git submodule update --init --recursive
+```
+
+### Update
+
+```bash
+git submodule update --remote
 ```
 
 ### Using makefile
