@@ -1,5 +1,33 @@
 # cuppa-tools
 
+## usage
+
+currently only as submodules
+
+
+### Add
+
+```bash
+git submodule add git@github.com:soulmonk/cuppa-tools.git
+```
+
+### Update
+
+```bash
+git submodule update --init --recursive
+```
+
+### Using makefile
+
+
+create Makefile and add lines:
+
+```Makefile
+#-include .env
+SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+include $(SELF_DIR)/cuppa-tools/Makefile.common.mk
+```
+
 ## Docker
 
 ### Helper
