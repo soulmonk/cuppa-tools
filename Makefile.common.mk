@@ -21,4 +21,5 @@ help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} { \
 		if (/^[a-zA-Z_-]+:.*?##.*$$/) {printf "    ${YELLOW}%-24s${GREEN}%s${RESET}\n", $$1, $$2} \
 		else if (/^## .*$$/) {printf "  ${CYAN}%s${RESET}\n", substr($$1,4)} \
+		else if (/^[a-zA-Z_-]+:$$/) {printf "  ${YELLOW}%s${WHITE} no docs${RESET} \n", $$1} \
 		}' $(MAKEFILE_LIST)
